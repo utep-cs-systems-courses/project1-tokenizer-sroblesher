@@ -1,6 +1,6 @@
-
+#include <stdlib.h>
 #include <stdio.h>
-#include "tokenizerCode.c"
+#include "tokenizer.c"
 #include "history.c"
 #include "history.h"
 #include "tokenizer.h"
