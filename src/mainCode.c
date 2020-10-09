@@ -1,11 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "tokenizer.c"
-#include "history.c"
 #include "history.h"
 #include "tokenizer.h"
-
-void token_to_history(List *history, char **words);
 
 int main()
 {
