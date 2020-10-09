@@ -35,35 +35,39 @@ int count_words(char *str)
 {
   int count = 0;
 
-  while (*str != '\0') { //Until the end of the string is reached
-    str = word_terminator(str); //Advance word by word. Getting to the end of a word each time
+  while (*str != '\0') { /* Until the end of the string is reached */
+    str = word_terminator(str); /* Advance word by word. Getting to the end of a word each time */
     count++;
   }
+  if (space_char(*(str-1))) return count - 1; /* End of string are spaces and not characters */
+  return count;
 }
 
 char *copy_str(char *inStr, short len)
 {
-  char *str = (char *) malloc(len + 1);
+  char *str = (char *) malloc((len + 1) * sizeof (char));
   
   for (int i = 0; i <= len; i++) {
     str[i] = inStr[i];
   }
+  str[len] = '\0';
   return str;
 }
 
 char **tokenize(char *str)
 {
   int numWords = count_words(str);
-  char **words = malloc(numWords + 1);
+  char **words = malloc((numWords + 1) * sizeof (char));
 
   for (int i = 0; i < numWords; i++) {
     char *startWord = word_start(str);
     char *endWord = word_terminator(str);
     int lengthWord = endWord- startWord;
     words[i] = copy_str(startWord, lengthWord);
+    str = endWord;
   }
 
-  words[numWords] = NULL; //Sets last string to NULL
+  words[numWords] = NULL; /* Sets last string to NULL */
   return words;
 }
 
@@ -72,7 +76,7 @@ void print_tokens(char **tokens)
   int token = 0;
   printf("\n");
   while (tokens[token] != NULL) {
-    printf("%s\n", tokens[token]); //Prints one token
+    printf("%d) %s\n", token+1, tokens[token]); /* Prints one token */
     token++;
   }
 }
@@ -81,7 +85,7 @@ void free_tokens(char **tokens)
 {
   int i = 0;
   while (tokens[i] != NULL) {
-    free(tokens[i]);  //"frees" each string
+    free(tokens[i]);  /* "frees" each string */
     i++;
   }
   free(tokens);
